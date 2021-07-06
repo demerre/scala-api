@@ -12,6 +12,11 @@ cache:
     - $HOME/.ivy2/cache
     - $HOME/.sbt/boot
 
+before_install:
+  - cp .env.dist .env
+  - docker-compose up -d
+  - sbt "shared/createDbTables"
+
 before_cache:
   # Cleanup the cached directories to avoid unnecessary cache updates
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
